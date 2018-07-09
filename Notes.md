@@ -660,3 +660,8 @@ public ActionResult AddPost()
 We can use the MVC's  BeginForm HTML helper method to render form elements. We wrap it in an @using(){ Html.BeginForm(...)}.
 Typically the using statment is used on unmanaged resources to ensure that they're properly released and cleaned up.
 In this context, the using statement is being used to ensure that the closing form element is rendered after all of the form's content is rendered. 
+
+## ModelState
+ModelState is a property of Controller, and it can be accessed from those classes that inherit from System.Web.Mvc.Controller
+The ModelState represents a collection of name/value pairs taht were submitted to the server during a POST. It also contains a collection of error messages for each value submitted. Despite it's name, it doesn't know anything about the model classes--just names, values, and errors.
+ModelState has two purposes: to store teh value submitted to the server, and to store the validation errors associated with those values. 
