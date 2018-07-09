@@ -655,3 +655,8 @@ public ActionResult AddPost()
     return View()
 }
 ```
+
+### MVC Form Helpers
+We can use the MVC's  BeginForm HTML helper method to render form elements. We wrap it in an @using(){ Html.BeginForm(...)}.
+Typically the using statment is used on unmanaged resources to ensure that they're properly released and cleaned up.
+In this context, the using statement is being used to ensure that the closing form element is rendered after all of the form's content is rendered. 
