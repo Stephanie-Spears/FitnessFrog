@@ -7,8 +7,8 @@ namespace Treehouse.FitnessFrog.Data
 {
     /// <summary>
     /// The repository for entries.
-    /// 
-    /// Note: The code in this class is not to be considered a "best practice" 
+    ///
+    /// Note: The code in this class is not to be considered a "best practice"
     /// example of how to do data persistence, but rather as workaround for
     /// not having a database to persist data to.
     /// </summary>
