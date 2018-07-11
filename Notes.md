@@ -666,3 +666,7 @@ ModelState is a property of Controller, and it can be accessed from those classe
 The ModelState represents a collection of name/value pairs taht were submitted to the server during a POST. It also contains a collection of error messages for each value submitted. Despite it's name, it doesn't know anything about the model classes--just names, values, and errors.
 ModelState has two purposes: to store teh value submitted to the server, and to store the validation errors associated with those values. 
 MVC’s model binding process will attempt to set an action method’s parameter values by looking for request form fields, route data, or request query string parameters with the same names.
+
+MVC gives priority to ModelState over the Model property values, IF there are ModelState values available.
+-On initial page load of a form, the ModelState value collection is empty, so the model property value is used instead.
+-After form submission, the ModelState is populated with values, so the model values are ignored when the view is re-rendered
