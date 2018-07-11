@@ -670,3 +670,7 @@ MVC’s model binding process will attempt to set an action method’s parameter val
 MVC gives priority to ModelState over the Model property values, IF there are ModelState values available.
 -On initial page load of a form, the ModelState value collection is empty, so the model property value is used instead.
 -After form submission, the ModelState is populated with values, so the model values are ignored when the view is re-rendered
+
+### Forms
+SelectListItem class is a simple object that's used to represent an item in a dropdown list
+SelectList class is used for creating a collection of SelectListItem objects
