@@ -674,3 +674,6 @@ MVC gives priority to ModelState over the Model property values, IF there are Mo
 ### Forms
 SelectListItem class is a simple object that's used to represent an item in a dropdown list
 SelectList class is used for creating a collection of SelectListItem objects
+
+#### Validation
+It’s non-optional for server-side validation to mirror whatever client-side validation you’ve implemented because users might not have JavaScript enabled, which would prevent client-side validation from being able to run.
