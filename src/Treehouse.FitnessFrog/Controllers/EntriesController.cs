@@ -10,7 +10,7 @@ namespace Treehouse.FitnessFrog.Controllers
 {
     public class EntriesController : Controller
     {
-        private EntriesRepository _entriesRepository = null;
+        private readonly EntriesRepository _entriesRepository;
 
         public EntriesController()
         {
@@ -33,7 +33,7 @@ namespace Treehouse.FitnessFrog.Controllers
                 .Count();
 
             ViewBag.TotalActivity = totalActivity;
-            ViewBag.AverageDailyActivity = (totalActivity / (double)numberOfActiveDays);
+            ViewBag.AverageDailyActivity = (totalActivity / numberOfActiveDays);
 
             return View(entries);
         }
