@@ -58,7 +58,6 @@
             <p>&copy; @DateTime.Now.Year @applicationName, All Rights Reserved.</p>
         </footer>
     </div>
-    @* <script src="~/Scripts/jquery-1.10.2.min.js"></script> *@
     <script src="~/Scripts/jquery-2.2.4.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
@@ -66,7 +65,7 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
     <script>
-        $('input.datepicker').datepicker({
+        $('input#datepicker').datepicker({
             format: 'm/d/yyyy'
         });
     </script>
