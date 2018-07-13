@@ -679,3 +679,7 @@ SelectList class is used for creating a collection of SelectListItem objects
 It’s non-optional for server-side validation to mirror whatever client-side validation you’ve implemented because users might not have JavaScript enabled, which would prevent client-side validation from being able to run.
 
 MVC’s support for client-side validation needs to be explicitly enabled by setting both the “UnobtrusiveJavaScriptEnabled” and “ClientValidationEnabled” app settings to “true” in the web.config file
+
+### TempData
+ViewBag and ViewData must be used within the same requeset
+TempData is like ViewBag/ViewData, except it survives to the next request, and then it expires. This allows us to set a TempData value on a request, redirect the user, and then display that value on part of the new request.
