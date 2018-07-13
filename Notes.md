@@ -683,3 +683,18 @@ MVC’s support for client-side validation needs to be explicitly enabled by setti
 ### TempData
 ViewBag and ViewData must be used within the same requeset
 TempData is like ViewBag/ViewData, except it survives to the next request, and then it expires. This allows us to set a TempData value on a request, redirect the user, and then display that value on part of the new request.
+
+## Partials
+Partials should be named with a leading underscore
+
+## Controller Base Class
+The controller base class provides:
+-Redirect
+-RedirectToAction
+-RedirectToRoute
+-HttpNotFound
+-etc.
+
+# .Net Libraries
+-Code compiled and packaged together for reuse
+-Also called .NET assemblies
