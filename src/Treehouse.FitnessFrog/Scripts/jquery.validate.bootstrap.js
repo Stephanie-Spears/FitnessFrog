@@ -1,16 +1,17 @@
-﻿(function ($) {
+﻿
+(function ($) {
     var defaultOptions = {
-        validClass: "has-success",
-        errorClass: "has-error",
+        validClass: 'has-success',
+        errorClass: 'has-error',
         highlight: function (element, errorClass, validClass) {
-            $(element).closest(".form-group")
-                .removeClass(validClass)
-                .addClass(errorClass);
+            $(element).closest('.form-group')
+				.removeClass(validClass)
+				.addClass(errorClass);
         },
         unhighlight: function (element, errorClass, validClass) {
-            $(element).closest(".form-group")
-                .removeClass(errorClass)
-                .addClass(validClass);
+            $(element).closest('.form-group')
+				.removeClass(errorClass)
+				.addClass(validClass);
         }
     };
 
@@ -18,6 +19,6 @@
 
     $.validator.unobtrusive.options = {
         errorClass: defaultOptions.errorClass,
-        validClass: defaultOptions.validClass
+        validClass: defaultOptions.validClass,
     };
 })(jQuery);
