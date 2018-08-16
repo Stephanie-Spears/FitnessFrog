@@ -15,6 +15,11 @@ namespace Treehouse.FitnessFrog.Controllers
 		[HttpPost]
 		public ActionResult Register(AccountRegisterViewModel viewModel)
 		{
+			if (ModelState.IsValid)
+			{
+				var user = new User(UserName = viewModel.Email, Email = viewModel.Email);
+			}
+
 			return View(viewModel);
 		}
 

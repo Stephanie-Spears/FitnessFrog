@@ -1,36 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Treehouse.FitnessFrog.Shared.Models;
 
 namespace Treehouse.FitnessFrog.Shared.Data
 {
-    public class Context : DbContext
-    {
-        public DbSet<Activity> Activities { get; set; }
-        public DbSet<Entry> Entries { get; set; }
+	public class Context : IdentityDbContext<User>
+	{
+		public DbSet<Activity> Activities { get; set; }
+		public DbSet<Entry> Entries { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            // Removing the pluralizing table name convention 
-            // so our table names will use our entity class singular names.
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+		public Context() : base("Context")
+		{
+		}
 
-            // Using the fluent API to configure entity properties...
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+			// Removing the pluralizing table name convention
+			// so our table names will use our entity class singular names.
+			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            // Configure the string length for the Activity.Name property.
-            modelBuilder.Entity<Activity>()
-                .Property(a => a.Name)
-                .HasMaxLength(100);
+			// Using the fluent API to configure entity properties...
 
-            // Configure the precision and scale for the Entry.Duration property.
-            modelBuilder.Entity<Entry>()
-                .Property(e => e.Duration)
-                .HasPrecision(5, 1);
-        }
-    }
+			// Configure the string length for the Activity.Name property.
+			modelBuilder.Entity<Activity>()
+				.Property(a => a.Name)
+				.HasMaxLength(100);
+
+			// Configure the precision and scale for the Entry.Duration property.
+			modelBuilder.Entity<Entry>()
+				.Property(e => e.Duration)
+				.HasPrecision(5, 1);
+		}
+	}
 }
