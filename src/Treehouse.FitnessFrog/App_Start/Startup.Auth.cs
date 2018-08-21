@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
-using Owin;
 using Microsoft.Owin.Security.Cookies;
+using Owin;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Treehouse.FitnessFrog
 {
@@ -13,7 +17,9 @@ namespace Treehouse.FitnessFrog
 			{
 				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
 				LoginPath = new PathString("/Account/SignIn"),
-				Provider = new CookieAuthenticationProvider()
+				Provider = new CookieAuthenticationProvider(),
+				CookieSecure = CookieSecureOption.Always,
+				CookieHttpOnly = true
 			});
 		}
 	}

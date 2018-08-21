@@ -1,9 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Treehouse.FitnessFrog.Shared.Models;
-using Treehouse.FitnessFrog.ViewModels;
-using Microsoft.Owin.Security;
 using Treehouse.FitnessFrog.Shared.Security;
+using Treehouse.FitnessFrog.ViewModels;
 
 namespace Treehouse.FitnessFrog.Controllers
 {
@@ -23,25 +29,67 @@ namespace Treehouse.FitnessFrog.Controllers
 			_authenticationManager = authenticationManager;
 		}
 
-		// GET: Register
+		[AllowAnonymous]
+		public ActionResult SignIn()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		[AllowAnonymous]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> SignIn(AccountSignInViewModel viewModel)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(viewModel);
+			}
+
+			// Sign-in the user
+			var result = await _signInManager.PasswordSignInAsync(
+				viewModel.Email, viewModel.Password, viewModel.RememberMe, shouldLockout: false);
+
+			// Check the result
+			switch (result)
+			{
+				case SignInStatus.Success:
+					return RedirectToAction("Index", "Entries");
+
+				case SignInStatus.Failure:
+					ModelState.AddModelError("", "Invalid login attempt.");
+					return View(viewModel);
+
+				case SignInStatus.LockedOut:
+				case SignInStatus.RequiresVerification:
+					throw new NotImplementedException("Identity feature not implemented.");
+				default:
+					throw new Exception("Unexpected Microsoft.AspNet.Identity.Owin.SignInStatus enum value: " + result);
+			}
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult SignOut()
+		{
+			_authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+			return RedirectToAction("Index", "Entries");
+		}
+
+		[AllowAnonymous]
 		public ActionResult Register()
 		{
 			return View();
 		}
 
 		[HttpPost]
+		[AllowAnonymous]
+		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> Register(AccountRegisterViewModel viewModel)
 		{
 			// If the ModelState is valid...
 			if (ModelState.IsValid)
 			{
-				// Validate if the provided email address is already in use.
-				/*				var existingUser = await UserManager.FindByEmailAsync(viewModel.Email);
-								if (existingUser != null)
-								{
-									ModelState.AddModelError("Email", $"The provided email address '{viewModel.Email}' has already been used to register an account. Please sign-in using your existing account.");
-								}*/
-
 				// Instantiate a User object
 				var user = new User { UserName = viewModel.Email, Email = viewModel.Email };
 
@@ -83,3 +131,19 @@ The Identity UserManager<TIdentityUser> class provides methods to find, create, 
 The Identity UserManager<TIdentityUser> class defines a single generic type parameter—TIdentityUser—that should be set to your user model type.
 
 */
+
+/*
+ * The IAuthenticationManager.SignOut() method accepts a single parameter specifying the authentication type that you want the user signed out of.
+ * Sign-in and register routes should allow anonymous requests so non-authenticated users can sign-in or create user accounts. The AllowAnonymous attribute allows both authenticated and anonymous requests (i.e. non-authenticated requests) to access the route.
+ * The Authorize attribute can be added globally so that every controller in the app will only be accessible to authenticated requests. AllowAnonymous attributes can be added to individual controllers or action methods to override the global Authorize attribute.
+ * The Authorize attribute requires that requests be authenticated in order to access the route. If a request isn't authenticated, MVC will return a response with a 401 Unauthorized HTTP status code, which is rewritten by Identity to a 302 Found HTTP status code in order to redirect the browser to the configured login path.
+ * Adding Authorize attributes at the controller level restricts every action method to authenticated requests while adding Authorize attributes to individual action methods restricts just those action methods.
+ */
+
+/*
+ * The User.Identity.GetUserId() method can be used to get the current user's Id. The current user's Id is often used when performing CRUD operations against the database.
+ * ASP.NET MVC can be configured to require HTTPS by adding the RequireHttps attribute as a global attribute. When using the RequireHttps attribute, MVC will redirect requests using HTTP to use HTTPS.
+ * When using Identity with Entity Framework, the AspNetUsers table is used to persist user records in the database. The AspNetUsers Id table column is the unique identifier for each user in the system.
+ * Over-the-wire communications should always be secured using SSL/TLS when implementing authentication in websites or web apps. Self-issued SSL certificates are often used for local development environments, but established certificate authorities should be used for production environments.
+ * User passwords are stored in the database as hashes. Identity's UserManager class internally uses an instance of the PasswordHasher class to hash the user's provided clear text password.
+ */

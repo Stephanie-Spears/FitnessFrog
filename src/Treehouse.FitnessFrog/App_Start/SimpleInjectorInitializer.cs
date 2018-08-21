@@ -1,10 +1,3 @@
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Treehouse.FitnessFrog.Shared.Security;
-using Microsoft.Owin;
-using Microsoft.Web;
-using Treehouse.FitnessFrog.Shared.Models;
-
 [assembly: WebActivator.PostApplicationStartMethod(typeof(Treehouse.FitnessFrog.App_Start.SimpleInjectorInitializer), "Initialize")]
 
 namespace Treehouse.FitnessFrog.App_Start
@@ -12,11 +5,15 @@ namespace Treehouse.FitnessFrog.App_Start
 	using System.Reflection;
 	using System.Web;
 	using System.Web.Mvc;
-
+	using Microsoft.AspNet.Identity;
+	using Microsoft.AspNet.Identity.EntityFramework;
+	using Microsoft.Owin;
 	using SimpleInjector;
 	using SimpleInjector.Integration.Web;
 	using SimpleInjector.Integration.Web.Mvc;
 	using Treehouse.FitnessFrog.Shared.Data;
+	using Treehouse.FitnessFrog.Shared.Models;
+	using Treehouse.FitnessFrog.Shared.Security;
 
 	public static class SimpleInjectorInitializer
 	{
@@ -44,12 +41,12 @@ namespace Treehouse.FitnessFrog.App_Start
 			container.Register<ApplicationUserManager>(Lifestyle.Scoped);
 			container.Register<ApplicationSignInManager>(Lifestyle.Scoped);
 			container.Register(() =>
-					container.IsVerifying
-						? new OwinContext().Authentication
-						: HttpContext.Current.GetOwinContext().Authentication,
+				container.IsVerifying
+					? new OwinContext().Authentication
+					: HttpContext.Current.GetOwinContext().Authentication,
 				Lifestyle.Scoped);
 			container.Register<IUserStore<User>>(() =>
-					new UserStore<User>(container.GetInstance<Context>()),
+				new UserStore<User>(container.GetInstance<Context>()),
 				Lifestyle.Scoped);
 		}
 	}

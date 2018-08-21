@@ -1,6 +1,11 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using Microsoft.AspNet.Identity.EntityFramework;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Treehouse.FitnessFrog.Shared.Models;
 
 namespace Treehouse.FitnessFrog.Shared.Data
@@ -10,17 +15,20 @@ namespace Treehouse.FitnessFrog.Shared.Data
 		public DbSet<Activity> Activities { get; set; }
 		public DbSet<Entry> Entries { get; set; }
 
-		public Context() : base("Context")
+		public Context()
+			: base("Context")
 		{
 		}
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
-			// Removing the pluralizing table name convention so our table names will use our entity class singular names.
+
+			// Removing the pluralizing table name convention
+			// so our table names will use our entity class singular names.
 			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-			// Using the fluent API to configure entity properties
+			// Using the fluent API to configure entity properties...
 
 			// Configure the string length for the Activity.Name property.
 			modelBuilder.Entity<Activity>()

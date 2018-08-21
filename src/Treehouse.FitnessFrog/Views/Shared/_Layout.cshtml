@@ -1,17 +1,5 @@
-﻿@{
+﻿﻿@{
 	var applicationName = "Fitness Frog";
-}
-@helper GetButtonVisibility(string controller, string action = null)
-{
-	if ((string)ViewContext.RouteData.Values["controller"] == controller && (action == null ||
-		(string)ViewContext.RouteData.Values["action"] == action))
-	{
-		<text>hidden</text>
-	}
-	else
-	{
-		<text>visible</text>
-	}
 }
 <!DOCTYPE html>
 <html>
@@ -22,8 +10,6 @@
 	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon">
 	<link href="~/favicon.ico" rel="icon" type="image/x-icon">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Secular+One" rel="stylesheet">
-	@*<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		<link href="~/Content/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />*@
 	<link href="~/Content/site.css" rel="stylesheet" type="text/css" />
 	<script src="~/Scripts/modernizr-2.8.3.js"></script>
 </head>
@@ -43,35 +29,7 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav"></ul>
-				<div class="navbar-right">
-					@if (Request.IsAuthenticated)
-					{
-						<a href="@Url.Action("Add", "Entries")"
-						   style="visibility: @GetButtonVisibility("Entries", "Add")"
-						   class="btn btn-primary navbar-btn">
-							<span class="glyphicon glyphicon-plus"></span> Add Entry
-						</a>
-						using (Html.BeginForm("SignOut", "Account", FormMethod.Post, new { @class = "navbar-right" }))
-						{
-							<button type="submit" class="btn btn-default navbar-btn">
-								<span class="glyphicon glyphicon-log-out"></span> Sign Out
-							</button>
-						}
-					}
-					else
-					{
-						<a href="@Url.Action("Register", "Account")"
-						   style="visibility: @GetButtonVisibility("Account")"
-						   class="btn btn-success navbar-btn">
-							<span class="glyphicon glyphicon-plus"></span> Register
-						</a>
-						<a href="@Url.Action("SignIn", "Account")"
-						   style="visibility: @GetButtonVisibility("Account")"
-						   class="btn btn-default navbar-btn">
-							<span class="glyphicon glyphicon-log-in"></span> Sign In
-						</a>
-					}
-				</div>
+				@Html.Partial("_Menu")
 			</div>
 		</div>
 	</div>
@@ -95,3 +53,11 @@
 	</script>
 </body>
 </html>
+
+@*
+	Cookies that don't have an expiration date are known as "session" cookies. Session cookies are stored in memory and never written to disk, hence why they are lost when the user closes their browser.
+
+	Cookies that have an explicit expiration date set are known as "persistent" cookies. Unlike session cookies, persistent cookies are saved to disk, so they can survive across browser restarts. Once the expiration date on a cookie has been reached, the browser will delete the cookie.
+
+	By default, when signing-in a user, Identity will generate the authentication cookie as a "session" cookie. But Identity also provides us with a way to make the login persistent, by generating a "persistent" cookie with an expiration date set to, by default, 14 days from today. Furthermore, Identity will treat this expiration date as a "sliding" expiration date, and will renew the cookie's expiration date, provided that the user uses the web app again before the cookie expires.
+*@
