@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Treehouse.FitnessFrog.ViewModels
+﻿namespace Treehouse.FitnessFrog.ViewModels
 {
 	public class EntriesEditViewModel
 		: EntriesBaseViewModel
