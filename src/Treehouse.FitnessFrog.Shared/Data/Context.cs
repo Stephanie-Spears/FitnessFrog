@@ -17,11 +17,10 @@ namespace Treehouse.FitnessFrog.Shared.Data
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
-			// Removing the pluralizing table name convention
-			// so our table names will use our entity class singular names.
+			// Removing the pluralizing table name convention so our table names will use our entity class singular names.
 			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-			// Using the fluent API to configure entity properties...
+			// Using the fluent API to configure entity properties
 
 			// Configure the string length for the Activity.Name property.
 			modelBuilder.Entity<Activity>()

@@ -9,7 +9,7 @@ namespace Treehouse.FitnessFrog.ViewModels
 		public string Email { get; set; }
 
 		[Required]
-		[StringLength(100, MinimumLength = 6, ErrorMessage = "the {0} must be at least {1} characters long.")]
+		[StringLength(100, MinimumLength = 6, ErrorMessage = "the {0} must be at least {2} characters long.")]
 		public string Password { get; set; }
 
 		[Display(Name = "Confirm Password")]
